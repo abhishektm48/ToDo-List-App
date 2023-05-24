@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-
+import About from "./Container/About";
+import Profile from "./Container/Profile";
+import {useState} from 'react';
+import {Route,Routes,Link,useNavigate} from 'react-router-dom'
+import  {AppContext} from './Appcontext';
 function App() {
+  const [state,setState]= useState(48)
+  const history = useNavigate()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <button onClick={()=>history('/about')}>About Me</button>
+        <button onClick={()=>history('/profile')}>Profile</button>
+        <AppContext.Provider value={{data:state}}>
+        <Routes>
+        <Route element={<About/>} path='/about' />
+        <Route element={<Profile/>} path='/profile' />
+        </Routes>
+        </AppContext.Provider>
     </div>
   );
 }
